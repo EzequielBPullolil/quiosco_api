@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "export NODE_PATH='.' && export NODE_ENV='testing' && mocha 'test/**/*.spec.js'"
+    "test": "export NODE_PATH='.' && export NODE_ENV='testing' && mocha 'test/**/*.spec.js' --exit"
   },
   "keywords": [],
   "author": "",

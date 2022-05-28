@@ -1,0 +1,10 @@
+{
+		"quiosco_api":{
+			"dbConfig":{
+				"username":"ezequielk-dev",
+				"password":"EzequielEnMysql",
+				"database":"quiosco_test_db",
+				"port":5432
+			}
+		}
+}

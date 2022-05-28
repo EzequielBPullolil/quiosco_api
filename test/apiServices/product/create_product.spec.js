@@ -19,6 +19,9 @@ const {
 //Domain imports
 const CreateProduct = require('src/apiServices/product/create_product');
 describe('CreateProduct test', () => {
+	before(async()=>{
+		await sequelize.query('DELETE FROM products');
+	})
     describe('basic product create', () => {
         /**
          * exceute CreateProduct function and

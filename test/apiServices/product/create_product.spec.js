@@ -18,6 +18,7 @@ const {
 
 //Domain imports
 const CreateProduct = require('src/apiServices/product/create_product');
+const AlreadyRegisteredBarcode = require('src/apiServices/product/exception/already_registered_barcode')
 describe('CreateProduct test', () => {
     before(async () => {
         await sequelize.query('DELETE FROM products');
@@ -36,7 +37,7 @@ describe('CreateProduct test', () => {
             price: 10
         };
         it('create product', () => {
-            expect(CreateProduct(productParams))
+            return expect(CreateProduct(productParams))
                 .to
                 .eventually
                 .be
@@ -54,7 +55,7 @@ describe('CreateProduct test', () => {
     describe('CreateProduct error clausules', () => {
         describe('missing any CreateProduct param throw error', () => {
             it('missing barcode param ', () => {
-                expect(CreateProduct({
+                return expect(CreateProduct({
                         name: 'aName',
                         description: 'a product description',
                         photo: 'a/product/photo/path',
@@ -65,7 +66,7 @@ describe('CreateProduct test', () => {
                     .be
                     .rejected;
             });
-			it('missing name param ', () => {
+            it('missing name param ', () => {
                 expect(CreateProduct({
                         barcode: 'aBarcode',
                         description: 'a product description',
@@ -77,7 +78,7 @@ describe('CreateProduct test', () => {
                     .be
                     .rejected;
             });
-			it('missing description param ', () => {
+            it('missing description param ', () => {
                 expect(CreateProduct({
                         barcode: 'aBarcode',
                         name: 'aName',
@@ -89,7 +90,7 @@ describe('CreateProduct test', () => {
                     .be
                     .rejected;
             });
-			it('missing photo param ', () => {
+            it('missing photo param ', () => {
                 expect(CreateProduct({
                         barcode: 'aBarcode',
                         name: 'aName',
@@ -101,7 +102,7 @@ describe('CreateProduct test', () => {
                     .be
                     .rejected;
             });
-			it('missing price param ', () => {
+            it('missing price param ', () => {
                 expect(CreateProduct({
                         barcode: 'aBarcode',
                         name: 'aName',
@@ -113,6 +114,31 @@ describe('CreateProduct test', () => {
                     .be
                     .rejected;
             });
+        });
+        describe('throw error if try sing already used barcode', () => {
+            let alreadyUsedBarcode;
+            before(async () => {
+                alreadyUsedBarcode = "aRegisteredBarcode";
+                await CreateProduct({
+                    barcode: alreadyUsedBarcode,
+                    name: "aProductName",
+                    description: "a product description",
+                    photo: "path/to/product/photo",
+                    price: 10.0
+                });
+            })
+			it('throw error ', () => {
+				return expect(CreateProduct({
+					barcode: alreadyUsedBarcode,
+					name: "otherName",
+					description: "a pretty product",
+					photo: "path/to/pretty/product",
+					price: 10000000.0
+				}))
+				.to
+				.be
+				.rejectedWith(AlreadyRegisteredBarcode);
+			});
         });
     });
 });

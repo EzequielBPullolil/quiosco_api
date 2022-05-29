@@ -11,6 +11,15 @@ const {
 //Api domain imports
 const app = require('src/app')
 describe('Products route test', () => {
+	it('post', (done) => {
+		request(app)
+			.post('/products')
+			.end((err,res)=>{
+				if(err) done(err);
+				expect(res).to.have.status(201)
+				done();
+			})
+	});
     it('get', (done) => {
         request(app)
             .get('/products')

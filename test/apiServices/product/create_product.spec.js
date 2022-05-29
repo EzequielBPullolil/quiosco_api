@@ -67,7 +67,7 @@ describe('CreateProduct test', () => {
                     .rejected;
             });
             it('missing name param ', () => {
-                expect(CreateProduct({
+                return expect(CreateProduct({
                         barcode: 'aBarcode',
                         description: 'a product description',
                         photo: 'a/product/photo/path',
@@ -79,7 +79,7 @@ describe('CreateProduct test', () => {
                     .rejected;
             });
             it('missing description param ', () => {
-                expect(CreateProduct({
+                return expect(CreateProduct({
                         barcode: 'aBarcode',
                         name: 'aName',
                         photo: 'a/product/photo/path',
@@ -91,7 +91,7 @@ describe('CreateProduct test', () => {
                     .rejected;
             });
             it('missing photo param ', () => {
-                expect(CreateProduct({
+                return expect(CreateProduct({
                         barcode: 'aBarcode',
                         name: 'aName',
                         description: 'a product description',
@@ -103,7 +103,7 @@ describe('CreateProduct test', () => {
                     .rejected;
             });
             it('missing price param ', () => {
-                expect(CreateProduct({
+                return expect(CreateProduct({
                         barcode: 'aBarcode',
                         name: 'aName',
                         description: 'a product description',

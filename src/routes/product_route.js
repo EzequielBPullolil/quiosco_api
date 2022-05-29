@@ -6,7 +6,9 @@ productRouter.route('/')
 		return res.sendStatus(200)
 	})
 	.post(async (req,res)=>{
-		return res.sendStatus(201)
+		return res.status(201).json({
+			status:'product created'
+		});
 	})
 
 module.exports = productRouter;

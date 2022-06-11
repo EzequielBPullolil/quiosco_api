@@ -15,6 +15,10 @@ productRouter.route('/')
 			console.log(err);
 			return res.status(400).json(err)
 		}
-	})
+	});
 
+productRouter.route('/barcode/:barcode')
+	.get((req,res)=>{
+		return res.sendStatus(200)
+	})
 module.exports = productRouter;

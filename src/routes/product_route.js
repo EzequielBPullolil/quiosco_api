@@ -1,6 +1,7 @@
 const express = require('express');
 const productRouter = express.Router();
 const CreateProduct = require('src/apiServices/product/create_product')
+const FindProduct = require('src/apiServices/product/find_product')
 productRouter.route('/')
 	.get((req,res)=>{
 		return res.sendStatus(200)
@@ -18,7 +19,8 @@ productRouter.route('/')
 	});
 
 productRouter.route('/barcode/:barcode')
-	.get((req,res)=>{
-		return res.sendStatus(200)
+	.get(async(req,res)=>{
+		const product = await FindProduct(req.params.barcode)
+		return res.status(200).json(product)
 	})
 module.exports = productRouter;

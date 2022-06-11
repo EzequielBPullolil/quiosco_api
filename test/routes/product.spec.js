@@ -11,17 +11,17 @@ const {
 //Api domain imports
 const app = require('src/app')
 describe('Products route test', () => {
-	const barcode = 'aTestBarcodeForRoute'
+	const productTestSuject = {
+        barcode:'aTestBarcodeForRoute',
+        name:"aaaa",
+        price:13,
+        description:"aaaa",
+        photo:"aaaa"
+    };
 	it('post', (done) => {
 		request(app)
 			.post('/products')
-			.send({
-				barcode,
-				name:"aaaa",
-				price:13,
-				description:"aaaa",
-				photo:"aaaa"
-			})
+			.send(productTestSuject)
 			.end((err,res)=>{
 				if(err) done(err);
 				expect(res).to.have.status(201)
@@ -42,10 +42,12 @@ describe('Products route test', () => {
     });
 	it('barcode get', (done) => {
         request(app)
-            .get(`/products/barcode/${barcode}`)
+            .get(`/products/barcode/${productTestSuject.barcode}`)
             .end((err, res) => {
                 if (err) done(err)
                 expect(res).to.have.status(200);
+                expect(res).to.be.json;
+                expect(res.body).to.be.deep.equal(productTestSuject)
                 done()
             })
     });

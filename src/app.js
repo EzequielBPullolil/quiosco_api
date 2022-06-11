@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 
+app.use(express.json());
 //Domain
 const productRouter = require('src/routes/product_route');
 

@@ -17,7 +17,7 @@ const FindProduct = require('src/apiServices/product/find_product');
 
 describe('FindProduct test', () => {
     let barcode;
-    before(async() => {
+    before(async () => {
         /**
          * Create a suject product
          */
@@ -25,9 +25,9 @@ describe('FindProduct test', () => {
         await sequelize.query(
             `INSERT INTO products(barcode)
             VALUES('${barcode}')`
-            ,{ type: QueryTypes.INSERT });
+            , { type: QueryTypes.INSERT });
     });
-    it('Basic find product test', async() => {
+    it('Basic find product test', async () => {
         /**
          * Test basic find product
          */
@@ -36,7 +36,7 @@ describe('FindProduct test', () => {
         expect(product).to.have.property('barcode');
         expect(product.barcode).to.be.equal(barcode)
     });
-    it('Find unregistered barcode throw error', async() => {
+    it('Find unregistered barcode throw error', async () => {
         return expect(FindProduct('unregisteredBarcode'))
             .to
             .eventually

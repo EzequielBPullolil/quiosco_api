@@ -29,18 +29,23 @@ describe('FindProduct test', () => {
     });
     it('Basic find product test', async () => {
         /**
-         * Test basic find product
-         */
+         * Verify if FindProduct function returns a product
+         **/
         const product = await FindProduct(barcode);
 
         expect(product).to.have.property('barcode');
-        expect(product.barcode).to.be.equal(barcode)
+        expect(product.barcode).to.be.equal(barcode);
     });
-    it('Find unregistered barcode throw error', async () => {
-        return expect(FindProduct('unregisteredBarcode'))
-            .to
-            .eventually
-            .be
-            .rejectedWith(UnregisteredBarcode);
+    describe('error test cases', () => {
+        it('Find unregistered barcode throw error', async () => {
+            /**
+             * Verify if finds a unregistered barcode throws error
+             **/
+            return expect(FindProduct('unregisteredBarcode'))
+                .to
+                .eventually
+                .be
+                .rejectedWith(UnregisteredBarcode);
+        });
     });
 });

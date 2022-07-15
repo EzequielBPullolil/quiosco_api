@@ -18,6 +18,15 @@ describe('Products route test', () => {
         description:"aaaa",
         photo:"aaaa"
     };
+    it('product status', (done) => {
+        request(app)
+            .get('/products')
+            .end((err, res) => {
+                if (err) done(err)
+                expect(res).to.have.status(200);
+                done()
+            })
+    });
 	it('post', (done) => {
 		request(app)
 			.post('/products')
@@ -31,15 +40,6 @@ describe('Products route test', () => {
 				done();
 			})
 	});
-    it('product status', (done) => {
-        request(app)
-            .get('/products')
-            .end((err, res) => {
-                if (err) done(err)
-                expect(res).to.have.status(200);
-                done()
-            })
-    });
 	it('barcode get', (done) => {
         request(app)
             .get(`/products/barcode/${productTestSuject.barcode}`)

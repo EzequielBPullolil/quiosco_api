@@ -61,7 +61,7 @@ describe('Products route test', () => {
                 expect(res).to.be.json;
                 expect(res.body).to.be.deep.equal({
                     status:'product deleted'
-                })
+                });
                 done();
             })
     });

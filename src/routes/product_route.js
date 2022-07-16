@@ -2,6 +2,7 @@ const express = require('express');
 const productRouter = express.Router();
 const CreateProduct = require('src/apiServices/product/create_product')
 const FindProduct = require('src/apiServices/product/find_product')
+const DeleteProduct = require('src/apiServices/product/delete_product')
 productRouter.route('/')
 	.get((req, res) => {
 		return res.sendStatus(200)
@@ -24,6 +25,7 @@ productRouter.route('/barcode/:barcode')
 		return res.status(200).json(product)
 	})
 	.delete(async (req, res) => {
+		await DeleteProduct(req.params.barcode);
 		return res.status(200).json({
 			status:'product deleted'
 		})

@@ -15,6 +15,7 @@ const { QueryTypes } = require('sequelize');
 
 //app deps
 const DeleteProduct = require('src/apiServices/product/delete_product')
+const UnregisteredBarcode = require('src/apiServices/product/exception/unregistered_barcode');
 
 describe('DeleteProduct test', () => {
     let barcodeSuspect; //
@@ -37,5 +38,14 @@ describe('DeleteProduct test', () => {
             .eventually
             .be
             .fulfilled;
+    });
+    describe('error cases', () => {
+        it('try delete unregistered barcode throw error', async() => {
+            return expect(DeleteProduct('unregisteredBarcode'))
+                .to
+                .eventually
+                .be
+                .rejectedWith(UnregisteredBarcode);
+        });
     });
 });

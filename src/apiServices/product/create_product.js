@@ -1,6 +1,6 @@
-const {productModel} = require('src/services/sequelize/index')
+const { productModel } = require('src/services/sequelize/index')
 const AlreadyRegisteredBarcode = require('src/apiServices/product/exception/already_registered_barcode')
-module.exports = async({barcode, name, price, description, photo})=>{
+module.exports = async ({ barcode, name, price, description, photo }) => {
 	/**
 		* Inserts one product in database using the product fields
 		* if not exist other product registered used @barcode
@@ -15,15 +15,14 @@ module.exports = async({barcode, name, price, description, photo})=>{
 
 		@return object
 	**/
-	if(barcode === undefined) throw new Error();
-	if(name === undefined) throw new Error();
-	if(description === undefined) throw new Error();
-	if(photo === undefined) throw new Error();
-	if(price === undefined) throw new Error();
+	if (barcode === undefined) throw new Error();
+	if (name === undefined) throw new Error();
+	if (description === undefined) throw new Error();
+	if (photo === undefined) throw new Error();
+	if (price === undefined) throw new Error();
 
-	const isProductRegistered = await productModel.findOne({where:{barcode: barcode}});
-
-	if(isProductRegistered) throw new AlreadyRegisteredBarcode;
+	const isProductRegistered = await productModel.findByPk(barcode);
+	if (isProductRegistered) throw new AlreadyRegisteredBarcode;
 	const product = await productModel.create({
 		barcode,
 		name,

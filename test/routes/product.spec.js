@@ -11,12 +11,12 @@ const {
 //Api domain imports
 const app = require('src/app')
 describe('Products route test', () => {
-	const productTestSuject = {
-        barcode:'aTestBarcodeForRoute',
-        name:"aaaa",
-        price:13,
-        description:"aaaa",
-        photo:"aaaa"
+    const productTestSuject = {
+        barcode: 'aTestBarcodeForRoute',
+        name: "aaaa",
+        price: 13,
+        description: "aaaa",
+        photo: "aaaa"
     };
     it('product status', (done) => {
         request(app)
@@ -27,20 +27,20 @@ describe('Products route test', () => {
                 done()
             })
     });
-	it('post', (done) => {
-		request(app)
-			.post('/products')
-			.send(productTestSuject)
-			.end((err,res)=>{
-				if(err) done(err);
-				expect(res).to.have.status(201)
-				expect(res.body).to.be.deep.equal({
-					status: 'product created'
-				})
-				done();
-			})
-	});
-	it('barcode get', (done) => {
+    it('post', (done) => {
+        request(app)
+            .post('/products')
+            .send(productTestSuject)
+            .end((err, res) => {
+                if (err) done(err);
+                expect(res).to.have.status(201)
+                expect(res.body).to.be.deep.equal({
+                    status: 'product created'
+                })
+                done();
+            })
+    });
+    it('barcode get', (done) => {
         request(app)
             .get(`/products/barcode/${productTestSuject.barcode}`)
             .end((err, res) => {
@@ -49,6 +49,20 @@ describe('Products route test', () => {
                 expect(res).to.be.json;
                 expect(res.body).to.be.deep.equal(productTestSuject)
                 done()
+            })
+    });
+    it('barcode delete', (done) => {
+        request(app)
+            .delete(`/products/barcode/${productTestSuject.barcode}`)
+            .end((err, res) => {
+                if (err) done(err);
+
+                expect(res).to.have.status(200);
+                expect(res).to.be.json;
+                expect(res.body).to.be.deep.equal({
+                    status:'product deleted'
+                })
+                done();
             })
     });
 });

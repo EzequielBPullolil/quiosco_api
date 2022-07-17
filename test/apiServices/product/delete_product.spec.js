@@ -8,11 +8,7 @@ const {
     expect,
     assert
 } = chai;
-const {
-    sequelize
-} = require('src/services/sequelize/index');
-const { QueryTypes } = require('sequelize');
-
+const CreateTestProduct = require('test/utils/create_test_product');
 //app deps
 const DeleteProduct = require('src/apiServices/product/delete_product')
 const UnregisteredBarcode = require('src/apiServices/product/exception/unregistered_barcode');
@@ -21,13 +17,16 @@ describe('DeleteProduct test', () => {
     let barcodeSuspect; //
     before(async() => {
         /**
-         * Creates a primitive product
+         * Creates a product
          **/
         barcodeSuspect = 'aBarcodeForTest'
-        await sequelize.query(
-            `INSERT INTO products(barcode)
-            VALUES('${barcodeSuspect}')`
-            , { type: QueryTypes.INSERT });
+        await CreateTestProduct({
+            barcode: barcodeSuspect,
+            name: "aProductName",
+            description: "a product description",
+            photo: "path/to/product/photo",
+            price: 10
+        });
     });
     it('basic delete product', async() => {
         /**

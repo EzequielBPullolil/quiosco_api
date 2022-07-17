@@ -40,29 +40,5 @@ describe('Products route test', () => {
                 done();
             })
     });
-    it('barcode get', (done) => {
-        request(app)
-            .get(`/products/barcode/${productTestSuject.barcode}`)
-            .end((err, res) => {
-                if (err) done(err)
-                expect(res).to.have.status(200);
-                expect(res).to.be.json;
-                expect(res.body).to.be.deep.equal(productTestSuject)
-                done()
-            })
-    });
-    it('barcode delete', (done) => {
-        request(app)
-            .delete(`/products/barcode/${productTestSuject.barcode}`)
-            .end((err, res) => {
-                if (err) done(err);
-
-                expect(res).to.have.status(200);
-                expect(res).to.be.json;
-                expect(res.body).to.be.deep.equal({
-                    status:'product deleted'
-                });
-                done();
-            })
-    });
+    
 });

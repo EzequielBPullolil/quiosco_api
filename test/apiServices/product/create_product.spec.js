@@ -8,6 +8,7 @@ const {
     expect,
     assert
 } = chai;
+const DeleteAllProduct = require('test/utils/delete_all_products');
 //app imports
 const {
     QueryTypes
@@ -21,7 +22,7 @@ const CreateProduct = require('src/apiServices/product/create_product');
 const AlreadyRegisteredBarcode = require('src/apiServices/product/exception/already_registered_barcode')
 describe('CreateProduct test', () => {
     before(async () => {
-        await sequelize.query('DELETE FROM products');
+        await DeleteAllProduct();
     })
     describe('basic product create', () => {
         /**

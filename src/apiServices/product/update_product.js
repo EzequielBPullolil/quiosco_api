@@ -10,6 +10,7 @@ module.exports = async (barcode, productFields) => {
      * @error UnregisteredBarcode 
      * @return PRODUCT
      */
+    if(productFields.barcode !== undefined) throw new Error("It is not allowed to modify the barcode")
     const fiteredFields = {};
     for (const key in productFields) {
         if(productFields[key] === undefined) continue;

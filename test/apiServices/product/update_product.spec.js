@@ -59,9 +59,8 @@ describe('UpdateProduct test', (done) => {
             .have
             .property('photo').equal(newPhoto);
     });
-
-    it('modify barcode throw error', async() => {
-        return expect(UpdateProduct(productSujectFieds.barcode, {barcode:'new barcode'}))
+    it('modify barcode throw error', async () => {
+        return expect(UpdateProduct(productSujectFieds.barcode, { barcode: 'new barcode' }))
             .to
             .eventually
             .be

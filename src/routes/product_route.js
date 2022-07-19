@@ -3,6 +3,8 @@ const productRouter = express.Router();
 const CreateProduct = require('src/apiServices/product/create_product')
 const FindProduct = require('src/apiServices/product/find_product')
 const DeleteProduct = require('src/apiServices/product/delete_product')
+const UpdateProduct = require('src/apiServices/product/update_product')
+
 productRouter.route('/')
 	.get((req, res) => {
 		return res.sendStatus(200)
@@ -28,6 +30,18 @@ productRouter.route('/barcode/:barcode')
 		await DeleteProduct(req.params.barcode);
 		return res.status(200).json({
 			status:'product deleted'
+		})
+	})
+	.put(async(req,res)=>{
+		const barcode = req.params.barcode;
+		const product = await UpdateProduct(barcode, req.body);
+		console.log({
+			status:'product updated',
+			product: product
+		})
+		return res.status(200).json({
+			status:'product updated',
+			product
 		})
 	})
 module.exports = productRouter;

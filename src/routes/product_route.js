@@ -16,32 +16,51 @@ productRouter.route('/')
 				status: 'product created'
 			});
 		} catch (err) {
-			console.log(err);
-			return res.status(400).json(err)
+			return res.status(400).json({
+				status:'product not created',
+				error: err
+			})
 		}
 	});
 
 productRouter.route('/barcode/:barcode')
 	.get(async (req, res) => {
-		const product = await FindProduct(req.params.barcode)
-		return res.status(200).json(product)
+		try{
+			const product = await FindProduct(req.params.barcode)
+			return res.status(200).json(product)
+		}catch(err){
+			return res.status(400).json({
+				status:'product not finded',
+				error: err
+			})
+		}
 	})
 	.delete(async (req, res) => {
-		await DeleteProduct(req.params.barcode);
-		return res.status(200).json({
-			status:'product deleted'
-		})
+		try{
+			await DeleteProduct(req.params.barcode);
+			return res.status(200).json({
+				status:'product deleted'
+			})
+		}catch(err){
+			return res.status(400).json({
+				status:'product not deleted',
+				error: err
+			})
+		}
 	})
 	.put(async(req,res)=>{
-		const barcode = req.params.barcode;
-		const product = await UpdateProduct(barcode, req.body);
-		console.log({
-			status:'product updated',
-			product: product
-		})
-		return res.status(200).json({
-			status:'product updated',
-			product
-		})
+		try{
+			const barcode = req.params.barcode;
+			const product = await UpdateProduct(barcode, req.body);
+			return res.status(200).json({
+				status:'product updated',
+				product
+			})
+		}catch(err){
+			return res.status(400).json({
+				status:'product not updated',
+				error: err
+			})
+		}
 	})
 module.exports = productRouter;

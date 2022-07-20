@@ -12,5 +12,5 @@ module.exports = async barcode => {
         throw new UnregisteredBarcode();
     }
 
-    return product;
+    return product.dataValues;
 };
